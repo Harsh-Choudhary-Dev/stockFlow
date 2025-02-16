@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "http://127.0.0.1:5501") // Allow frontend requests
 public class ProductController {
 
     @Autowired
