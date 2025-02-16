@@ -16,8 +16,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://yummy-sibel-stockflow123-be085e06.koyeb.app")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedOrigins(
+                                "https://yummy-sibel-stockflow123-be085e06.koyeb.app",
+                                "http://localhost:8080"
+                        )                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("Origin", "Content-Type", "Accept", "Authorization")
                         .allowCredentials(true)
                         .maxAge(3600);
