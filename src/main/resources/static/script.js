@@ -54,7 +54,7 @@ loadContent('Dashboard');
 function initializeProductTab(){
 
 
-    fetch("http://localhost:8080/api/categories")
+    fetch("/api/categories")
     .then(res => res.json()) 
     .then(categories => {
         populateCategoryDropdown(categories); 
@@ -67,7 +67,7 @@ function initializeProductTab(){
             description: document.getElementById("group-description").value,
         };
     
-        fetch("http://localhost:8080/api/categories", {
+        fetch("/api/categories", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json" 
@@ -128,7 +128,7 @@ function initializeProductTab(){
 
     async function saveProduct(data) {
         try {
-            const response = await fetch("http://localhost:8080/api/products", {
+            const response = await fetch("/api/products", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -149,7 +149,7 @@ function initializeProductTab(){
 
     async function fetchProducts() {
         try {
-            const response = await fetch("http://localhost:8080/api/products");
+            const response = await fetch("/api/products");
             
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -165,7 +165,7 @@ function initializeProductTab(){
     
     function deleteProduct(productId) {
         console.log(productId.id)
-        fetch(`http://localhost:8080/api/products/${productId}`, {
+        fetch(`/api/products/${productId}`, {
             method: 'DELETE'
         })
         .then(response => response.text())
@@ -321,13 +321,13 @@ function initializeDashboardTab(){
             },
         };
 
-        fetch("http://localhost:8080/api/orders/completed").then(res => {
+        fetch("/api/orders/completed").then(res => {
             return res.json()
         }).then(orders => {
                 const sum =  orders.reduce((sum, order) => sum + order.total_amount, 0);
         })
 
-        fetch("http://localhost:8080/api/orders/all-stats").then(res => {
+        fetch("/api/orders/all-stats").then(res => {
             return res.json()
         }).then(stats => {
             const stats_cards = document.querySelectorAll(".stat-value")
@@ -338,25 +338,25 @@ function initializeDashboardTab(){
             console.log(stats)
         })
 
-        fetch("http://localhost:8080/api/orders/top-categories").then(res => {
+        fetch("/api/orders/top-categories").then(res => {
             return res.json()
         }).then(topCategories => {
             initTopCategories(topCategories)
         })
 
-        fetch("http://localhost:8080/api/products/recents").then(res => {
+        fetch("/api/products/recents").then(res => {
             return res.json()
         }).then(recentProducts => {
             initRecentProducts(recentProducts) 
         })
 
-        fetch("http://localhost:8080/api/orders/recent-sales").then(res => {
+        fetch("/api/orders/recent-sales").then(res => {
             return res.json()
         }).then(recentSales => {
             initLatestSales(recentSales)
         })
 
-        fetch("http://localhost:8080/api/orders/recent-sales").then(res => {
+        fetch("/api/orders/recent-sales").then(res => {
             return res.json()
         }).then(chartsSales => {
             const total_amount = chartsSales.map((items)=> items.totalAmount)
@@ -486,7 +486,7 @@ function initializeSalesTab(){
                 tableBody.innerHTML = '';
                 
 
-                fetch("http://localhost:8080/api/orders").then(res => {
+                fetch("/api/orders").then(res => {
                     return res.json()
                 }).then(salesData => {
                     salesData.forEach(sale => {
@@ -552,7 +552,7 @@ function initializeSalesTab(){
             }, 500); // Adjust the delay if needed
             
             function deleteSales(productId) {
-                fetch(`http://localhost:8080/api/orders/delete/${productId}`, {
+                fetch(`/api/orders/delete/${productId}`, {
                     method: 'DELETE'
                 })
                 .then(response => response.text())
@@ -574,7 +574,7 @@ function initializeUsersTab(){
     displayUsers();
     async function saveUser(userData) {
         try {
-            const response = await fetch("http://localhost:8080/api/users/save", {
+            const response = await fetch("/api/users/save", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -633,7 +633,7 @@ function initializeUsersTab(){
     });
 
     function displayUsers() {
-        fetch("http://localhost:8080/api/users").then(res => {
+        fetch("/api/users").then(res => {
             //console.log(res)
             return res.json()
         }).then(users => {
@@ -680,7 +680,7 @@ function initializeUsersTab(){
     
     function deleteUser(userId) {
         console.log(userId)
-        fetch(`http://localhost:8080/api/users/${userId}`, {
+        fetch(`/api/users/${userId}`, {
             method: "DELETE"
         })
         .then(response => {
