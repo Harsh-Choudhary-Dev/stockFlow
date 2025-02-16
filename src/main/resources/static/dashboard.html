@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #4f46e5;
+            --accent: #10b981;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        .main-content {
+            display: grid;
+            gap: 1.5rem;
+            width: 165vh;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                width: 100%;
+            }
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.25rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .icon-purple { background: var(--primary); }
+        .icon-green { background: var(--success); }
+        .icon-orange { background: var(--warning); }
+        .icon-red { background: var(--danger); }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .change-up { color: var(--success); }
+        .change-down { color: var(--danger); }
+
+        /* Content Cards */
+        .content-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .chart-card, .list-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Lists */
+        .product-list, .category-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(4px);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-meta {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .item-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon icon-purple">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+                <div class="stat-value"></div>
+                <div class="stat-label">Total Revenue</div>
+                <div class="stat-change change-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <!-- <span>12.5% from last month</span> -->
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon icon-green">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                </div>
+                <div class="stat-value"></div>
+                <div class="stat-label">Total Orders</div>
+                <div class="stat-change change-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <!-- <span>8.2% from last month</span> -->
+                </div>
+            </div>
+            <!-- <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon icon-orange">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="stat-value">892</div>
+                <div class="stat-label">Active Customers</div>
+                <div class="stat-change change-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>5.1% from last month</span>
+                </div>
+            </div> -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon icon-red">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                </div>
+                <div class="stat-value">15</div>
+                <div class="stat-label">Low Stock Items</div>
+                <div class="stat-change change-down">
+                    <i class="fas fa-arrow-down"></i>
+                    <!-- <span>3 more than last week</span> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-grid">
+            <!-- Sales Chart -->
+            <div class="chart-card">
+                <div class="card-header">
+                    <h3 class="card-title">Sales Overview</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Top Categories -->
+            <div class="list-card">
+                <div class="card-header">
+                    <h3 class="card-title">Top Categories</h3>
+                </div>
+                <div class="category-list" id="categoryList"></div>
+            </div>
+        </div>
+
+        <!-- Products and Sales -->
+        <div class="content-grid">
+            <!-- Recently Added Products -->
+            <div class="list-card">
+                <div class="card-header">
+                    <h3 class="card-title">Recently Added Products</h3>
+                </div>
+                <div class="product-list" id="recentProducts"></div>
+            </div>
+
+            <!-- Latest Sales -->
+            <div class="list-card">
+                <div class="card-header">
+                    <h3 class="card-title">Latest Sales</h3>
+                </div>
+                <div class="product-list" id="latestSales"></div>
+            </div>
+        </div>
+    </main>
+<script>
+    
+</script>
+</body>
+</html>
